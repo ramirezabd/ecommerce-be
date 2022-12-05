@@ -1,9 +1,10 @@
-import express from "express";
+import { bodyParser } from "body-parser";
 import cors from "cors";
+import dotenv from "dotenv";
+import express from "express";
 import helmet from "helmet";
 import multer from "multer";
 import path from "path";
-import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import routes from "../src/routes/routes";
 
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(helmet());
 
 app.use(express.json());
+app.use(bodyParser.json());
 
 // UniqueSuffix sebagai randomizer
 const ImgStorage = multer.diskStorage({
@@ -65,9 +67,6 @@ app.use(
   ]),
 );
 
-app.get("/", (req, res) => {
-  res.send("ok");
-});
 app.use("/api/v1", routes);
 
 export default app;
