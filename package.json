@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --es-module-specifier-resolution=node server.js",
+    "create:db": "node --es-module-specifier-resolution=node src/config/create_db.js",
+    "create:table": "node --es-module-specifier-resolution=node src/config/create_table.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },

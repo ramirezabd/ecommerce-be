@@ -64,6 +64,7 @@ const login = async (req, res) => {
     const accessToken = jwt.sign(usersData, process.env.SECRET_TOKEN, {
       expiresIn: "60s",
     });
+
     const refreshToken = jwt.sign(usersData, process.env.REFRESH_TOKEN, {
       expiresIn: "3d",
     });
@@ -90,17 +91,16 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   const { refreshToken } = req.cookies;
-  if (!refreshToken) {
-    res.sendStatus(204);
-  }
+  if (!refreshToken) res.sendStatus(204);
+
   const user = await Users.findAll({
     where: {
       refreshToken,
     },
   });
-  if (!user[0]) {
-    res.sendStatus(204);
-  }
+
+  if (!user[0]) res.sendStatus(204);
+
   const userId = user[0].id;
   await Users.update(
     { refresh_token: null },
