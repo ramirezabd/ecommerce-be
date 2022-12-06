@@ -20,13 +20,14 @@ app.use(express.json());
 // UniqueSuffix sebagai randomizer
 const ImgStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "images");
+    cb(null, "../../src/imgsrc/misc");
   },
   filename: (req, file, cb) => {
     const UniqueSuffix = `${Date.now}-${Math.round(Math.random() * 1e9)}`;
     cb(null, `${file.fieldname}-${UniqueSuffix}`);
   },
 });
+
 
 // ImgFilter untuk filter extensi file
 const ImgFilter = (req, file, cb) => {
@@ -42,7 +43,7 @@ const ImgFilter = (req, file, cb) => {
 };
 
 // lokasi penyimpanan file yangg sudah diupload
-app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/images", express.static(path.join(__dirname, "../../src/imgsrc/misc")));
 
 // multiple image upload, maxCount max gambar yang bisa diupload
 app.use(
