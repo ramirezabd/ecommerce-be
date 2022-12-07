@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { bodyParser } from "body-parser";
 import cors from "cors";  
+=======
+import bodyParser from "body-parser";
+import cors from "cors";
+>>>>>>> 3d33956e3cec9724dc889e5f1dbd292680576a30
 import dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
@@ -68,7 +73,10 @@ app.use(
   ]),
 );
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3d33956e3cec9724dc889e5f1dbd292680576a30
 app.use("/api/v1", routes);
 
 export default app;
