@@ -1,5 +1,6 @@
 import db from "../models";
-import Products from "../../models/product";
+const Products = db.Product
+// import Products from "../../models/product.js";
 
 module.exports.CariSemua = async (req, res) => {
     db.Products.findAll()
@@ -9,7 +10,31 @@ module.exports.CariSemua = async (req, res) => {
         .catch(err => console.error(err))
 }
 
-module.exports.BuatProduct = async (req, res) => {
+module.exports.BuatProduc = async (req, res) => {
+        const ProductsRule = await {
+            id_Seller: req.body.id_Seller,
+            id_Category: req.body.id_Category,
+            id_Shop: req.body.id_Shop,
+            Descr_Product: req.body.Descr_Product,
+            Quantity_Product: req.body.Quantity_Product,
+            Unit_Price: req.body.Unit_Price,
+            Product_Pictures: req.file.Product_Pictures
+        }
+
+        Products.create(ProductsRule)
+            .then(data => {
+                res.send(data)
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: 
+                        err.message || "Terdapat kesalahan dalam penambahan data"
+                })
+            }) 
+}
+
+const BuatProduct = async (req, res) => {
+    try {
         const ProductsRule = await {
             id_Seller: req.body.id_Seller,
             id_Category: req.body.id_Category,
@@ -30,7 +55,10 @@ module.exports.BuatProduct = async (req, res) => {
                         err.message || "Terdapat kesalahan dalam penambahan data"
                 })
             })
-        
+
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 module.exports.BuatProductFoto = async (req, res) => {
@@ -60,3 +88,5 @@ module.exports.BuatProductFoto = async (req, res) => {
         return res.send(`Kesalahan saat pengiriman ${error}`);
       }
 }
+
+export default BuatProduct;

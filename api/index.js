@@ -1,17 +1,12 @@
-<<<<<<< HEAD
-import { bodyParser } from "body-parser";
-import cors from "cors";  
-=======
 import bodyParser from "body-parser";
-import cors from "cors";
->>>>>>> 3d33956e3cec9724dc889e5f1dbd292680576a30
+import cors from "cors";  
 import dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
-import routes from "../src/routes/routes";
+import routes from "../src/routes/routes.js";
 
 dotenv.config();
 const app = express();
@@ -73,10 +68,7 @@ app.use(
   ]),
 );
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 3d33956e3cec9724dc889e5f1dbd292680576a30
 app.use("/api/v1", routes);
 
 export default app;

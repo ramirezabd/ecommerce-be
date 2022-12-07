@@ -100,11 +100,7 @@ const logout = async (req, res) => {
   });
 
   if (!user[0]) res.sendStatus(204);
-<<<<<<< HEAD
   
-=======
-
->>>>>>> 3d33956e3cec9724dc889e5f1dbd292680576a30
   const userId = user[0].id;
   await Users.update(
     { refresh_token: null },

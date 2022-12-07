@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Lorem Ipsum",
   "type": "module",
-  "main": "index.js",
-  "type": "module",
+  "main": "server.js",
   "scripts": {
     "dev": "nodemon --es-module-specifier-resolution=node server.js",
     "create:db": "node --es-module-specifier-resolution=node src/config/create_db.js",
