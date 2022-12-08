@@ -25,9 +25,10 @@
 //   await db.sync();
 // })();
 
-import { DataTypes } from "sequelize";
-const Users = sequelize.define(
-    "Users",
+import Sequelize, { DataTypes } from "sequelize";
+
+const Users = Sequelize.define(
+  "Users",
   {
     username: {
       type: DataTypes.STRING,
@@ -43,6 +44,6 @@ const Users = sequelize.define(
     },
   },
   { freezeTableName: true },
-)
+);
 
 export default Users;

@@ -1,8 +1,6 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+import { Model } from "sequelize";
+
+export default (sequelize, DataTypes) => {
   class Checkout extends Model {
     /**
      * Helper method for defining associations.
@@ -13,14 +11,17 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Checkout.init({
-    id_Cart: DataTypes.INTEGER,
-    id_Product: DataTypes.INTEGER,
-    Quantity: DataTypes.INTEGER,
-    Total_Price: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Checkout',
-  });
+  Checkout.init(
+    {
+      id_Cart: DataTypes.INTEGER,
+      id_Product: DataTypes.INTEGER,
+      Quantity: DataTypes.INTEGER,
+      Total_Price: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "Checkout",
+    },
+  );
   return Checkout;
 };

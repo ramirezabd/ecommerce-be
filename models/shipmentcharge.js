@@ -1,6 +1,6 @@
-'use strict';
-const { Model } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+import { Model } from "sequelize";
+
+export default (sequelize, DataTypes) => {
   class ShipmentCharge extends Model {
     /**
      * Helper method for defining associations.
@@ -11,12 +11,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  ShipmentCharge.init({
-    Location: DataTypes.STRING,
-    Ship_Cost: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'ShipmentCharge',
-  });
+  ShipmentCharge.init(
+    {
+      Location: DataTypes.STRING,
+      Ship_Cost: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "ShipmentCharge",
+    },
+  );
   return ShipmentCharge;
 };

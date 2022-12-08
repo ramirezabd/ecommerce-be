@@ -1,6 +1,8 @@
 // import { dbConfig } from "../config/db.detail.js";
-const dbConfig = require("../config/db.detail.js")
 import { Sequelize } from "sequelize";
+
+const dbConfig = require("./db.detail.js");
+
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -12,7 +14,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     acquire: dbConfig.pool.acquire,
     idle: dbConfig.pool.idle,
   },
-})
+});
 
 const db = {};
 

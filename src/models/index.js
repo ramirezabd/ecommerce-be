@@ -41,10 +41,10 @@
 //   }
 // });
 
+import { Sequelize } from "sequelize";
 import configDB from "../config/config_db";
-import { Sequelize} from "sequelize"
 // const Sequelize = require("sequelize");
-const sequelize = new Sequelize(configDB.DB,configDB.USER,configDB.PASSWORD, {
+const sequelize = new Sequelize(configDB.DB, configDB.USER, configDB.PASSWORD, {
   host: configDB?.HOST,
   dialect: configDB?.dialect,
   operatorAliases: false,
