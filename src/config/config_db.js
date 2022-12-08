@@ -1,24 +1,20 @@
-// import { createConnection } from "mysql";
-
-// const database = createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "",
-//   database: "miolica",
-// });
-
-// database.connect((err) => {
-//   if (err) throw err;
-//   console.log("mysql is running...");
-// });
-
-// export default database;
-
+// import { dbConfig } from "../config/db.detail.js";
+const dbConfig = require("../config/db.detail.js")
 import { Sequelize } from "sequelize";
+const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
+  host: dbConfig.HOST,
+  dialect: dbConfig.dialect,
+  operatorsAliases: false,
 
-const db = new Sequelize("miolica", "root", "", {
-  host: "localhost",
-  dialect: "mysql",
-});
+  pool: {
+    max: dbConfig.pool.max,
+    min: dbConfig.pool.min,
+    acquire: dbConfig.pool.acquire,
+    idle: dbConfig.pool.idle,
+  },
+})
 
-export default db;
+const db = {};
+
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;

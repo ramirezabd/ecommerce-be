@@ -32,23 +32,50 @@
 // });
 
 // const configdb = require(".././src/config/config_db");
-import configDB from ".././src/config/config_db";
+const config = require(".././src/config/db.detail.js")
+// import configDB from ".././src/config/config_db.js";
+// import miolica from ".././src/config/config_db.js"
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(configDB.DB,configDB.USER,configDB.PASSWORD, {
-  host: configDB.HOST,
-  dialect: configDB.dialect,
+const sequelize = new Sequelize(config.DB,config.USER,config.PASSWORD, {
+  host: config.HOST,
+  dialect: config.dialect,
   operatorAliases: false,
 
   pool: {
-    max: configDB.pool.max,
-    min: configDB.pool.min,
-    acquire: configDB.pool.acquire,
-    idle: configDB.pool.idle,
+    max: config.pool.max,
+    min: config.pool.min,
+    acquire: config.pool.acquire,
+    idle: config.pool.idle,
   },
 });
 
+// const sequelizeMiolica = new Sequelize(miolica.DB,miolica.USER,miolica.PASSWORD, {
+//   host: miolica.HOST,
+//   dialect: miolica.dialect,
+//   operatorAliases: false,
+
+//   pool: {
+//     max: miolica.pool.max,
+//     min: miolica.pool.min,
+//     acquire: miolica.pool.acquire,
+//     idle: miolica.pool.idle,
+//   },
+// });
+
+
 db.sequelize = sequelize;
+db.sequelizeM = sequelizeMiolica;
 db.Sequelize = Sequelize;
+
+db.Cart = require("./cart")(sequelizeMiolica,Sequelize);
+db.Category = require("./category")(sequelizeMiolica,Sequelize);
+db.Checkout = require("./checkout")(sequelizeMiolica,Sequelize);
+db.PersonalInfo = require("./personalinfo")(sequelizeMiolica,Sequelize);
+db.Product = require("./product")(sequelizeMiolica,Sequelize);
+db.Shop = require("./shop")(sequelizeMiolica,Sequelize);
+db.ShipmentCharge = require("./shipmentcharge")(sequelizeMiolica,Sequelize);
+db.Wishlist = require("./wishlist")(sequelizeMiolica,Sequelize);
+
 
 db.Cart = require("./cart")(sequelize,Sequelize);
 db.Category = require("./category")(sequelize,Sequelize);
@@ -58,6 +85,5 @@ db.Product = require("./product")(sequelize,Sequelize);
 db.Shop = require("./shop")(sequelize,Sequelize);
 db.ShipmentCharge = require("./shipmentcharge")(sequelize,Sequelize);
 db.Wishlist = require("./wishlist")(sequelize,Sequelize);
-
 
 module.exports = db;
