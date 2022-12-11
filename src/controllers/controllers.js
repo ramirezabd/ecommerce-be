@@ -40,52 +40,45 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const user = Users.findAll({
+    const user = await Users.findAll({
       where: {
         email: req.body.email,
       },
     });
-
     const match = await bcrypt.compare(req.body.password, user[0].password);
-
-    if (!match) {
-      res.status(400).json({
-        messege: "Password salah",
-        code: 400,
-      });
-    }
-
-    const usersData = {
-      userId: user[0].id,
-      username: user[0].username,
-      email: user[0].email,
-    };
-
-    const accessToken = jwt.sign(usersData, process.env.SECRET_TOKEN, {
-      expiresIn: "60s",
-    });
-
-    const refreshToken = jwt.sign(usersData, process.env.REFRESH_TOKEN, {
-      expiresIn: "3d",
-    });
-
+    if (!match) res.status(400).json({ msg: "Wrong Password" });
+    const userId = user[0].id;
+    const { name } = user[0];
+    const { email } = user[0];
+    const accessToken = jwt.sign(
+      { userId, name, email },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: "15s",
+      },
+    );
+    const refreshToken = jwt.sign(
+      { userId, name, email },
+      process.env.REFRESH_TOKEN_SECRET,
+      {
+        expiresIn: "1d",
+      },
+    );
     await Users.update(
-      { refreshToken },
+      { refresh_token: refreshToken },
       {
         where: {
-          id: usersData.userId,
+          id: userId,
         },
       },
     );
-
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 100,
+      maxAge: 24 * 60 * 60 * 1000,
     });
-
     res.json({ accessToken });
   } catch (error) {
-    console.error(error);
+    res.status(404).json({ msg: "Email not found" });
   }
 };
 
@@ -100,7 +93,7 @@ const logout = async (req, res) => {
   });
 
   if (!user[0]) res.sendStatus(204);
-  
+
   const userId = user[0].id;
   await Users.update(
     { refresh_token: null },

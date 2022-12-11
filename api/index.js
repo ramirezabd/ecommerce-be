@@ -1,12 +1,12 @@
 import bodyParser from "body-parser";
-import cors from "cors";  
+import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
-import routes from "../src/routes/routes.js";
+import routes from "../src/routes/routes";
 
 dotenv.config();
 const app = express();
@@ -30,7 +30,6 @@ const ImgStorage = multer.diskStorage({
   },
 });
 
-
 // ImgFilter untuk filter extensi file
 const ImgFilter = (req, file, cb) => {
   if (
@@ -45,7 +44,10 @@ const ImgFilter = (req, file, cb) => {
 };
 
 // lokasi penyimpanan file yangg sudah diupload
-app.use("/images", express.static(path.join(__dirname, "../../src/imgsrc/misc")));
+app.use(
+  "/images",
+  express.static(path.join(__dirname, "../../src/imgsrc/misc")),
+);
 
 // multiple image upload, maxCount max gambar yang bisa diupload
 app.use(
@@ -67,7 +69,6 @@ app.use(
     },
   ]),
 );
-
 
 app.use("/api/v1", routes);
 
