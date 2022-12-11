@@ -1,7 +1,33 @@
-import { DataTypes } from "sequelize";
-import db from "../config/config_db";
+// import { DataTypes } from "sequelize";
+// import { sequelize } from "sequelize"
+// import db from "../config/config_db";
 
-const Users = db.define(
+// const Users = sequelize.define(
+//   "Users",
+//   {
+//     username: {
+//       type: DataTypes.STRING,
+//     },
+//     email: {
+//       type: DataTypes.STRING,
+//     },
+//     password: {
+//       type: DataTypes.STRING,
+//     },
+//     refreshToken: {
+//       type: DataTypes.TEXT,
+//     },
+//   },
+//   { freezeTableName: true },
+// );
+
+// (async () => {
+//   await db.sync();
+// })();
+
+import Sequelize, { DataTypes } from "sequelize";
+
+const Users = Sequelize.define(
   "Users",
   {
     username: {
@@ -19,9 +45,5 @@ const Users = db.define(
   },
   { freezeTableName: true },
 );
-
-(async () => {
-  await db.sync();
-})();
 
 export default Users;

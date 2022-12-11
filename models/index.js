@@ -32,32 +32,63 @@
 // });
 
 // const configdb = require(".././src/config/config_db");
-import configDB from ".././src/config/config_db";
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize(configDB.DB,configDB.USER,configDB.PASSWORD, {
-  host: configDB.HOST,
-  dialect: configDB.dialect,
+import Sequelize from "sequelize";
+import {
+  DB,
+  USER,
+  PASSWORD,
+  HOST,
+  dialect as _dialect,
+  pool as _pool,
+} from "../src/config/db.detail";
+// import configDB from ".././src/config/config_db.js";
+// import miolica from ".././src/config/config_db.js"
+const sequelize = new Sequelize(DB, USER, PASSWORD, {
+  host: HOST,
+  dialect: _dialect,
   operatorAliases: false,
 
   pool: {
-    max: configDB.pool.max,
-    min: configDB.pool.min,
-    acquire: configDB.pool.acquire,
-    idle: configDB.pool.idle,
+    max: _pool.max,
+    min: _pool.min,
+    acquire: _pool.acquire,
+    idle: _pool.idle,
   },
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+// const sequelizeMiolica = new Sequelize(miolica.DB,miolica.USER,miolica.PASSWORD, {
+//   host: miolica.HOST,
+//   dialect: miolica.dialect,
+//   operatorAliases: false,
 
-db.Cart = require("./cart")(sequelize,Sequelize);
-db.Category = require("./category")(sequelize,Sequelize);
-db.Checkout = require("./checkout")(sequelize,Sequelize);
-db.PersonalInfo = require("./personalinfo")(sequelize,Sequelize);
-db.Product = require("./product")(sequelize,Sequelize);
-db.Shop = require("./shop")(sequelize,Sequelize);
-db.ShipmentCharge = require("./shipmentcharge")(sequelize,Sequelize);
-db.Wishlist = require("./wishlist")(sequelize,Sequelize);
+//   pool: {
+//     max: miolica.pool.max,
+//     min: miolica.pool.min,
+//     acquire: miolica.pool.acquire,
+//     idle: miolica.pool.idle,
+//   },
+// });
 
+// db.sequelize = sequelize;
+// db.sequelizeM = sequelizeMiolica;
+// db.Sequelize = Sequelize;
 
-module.exports = db;
+// db.Cart = require("./cart")(sequelizeMiolica, Sequelize);
+// db.Category = require("./category")(sequelizeMiolica, Sequelize);
+// db.Checkout = require("./checkout")(sequelizeMiolica, Sequelize);
+// db.PersonalInfo = require("./personalinfo")(sequelizeMiolica, Sequelize);
+// db.Product = require("./product")(sequelizeMiolica, Sequelize);
+// db.Shop = require("./shop")(sequelizeMiolica, Sequelize);
+// db.ShipmentCharge = require("./shipmentcharge")(sequelizeMiolica, Sequelize);
+// db.Wishlist = require("./wishlist")(sequelizeMiolica, Sequelize);
+
+// db.Cart = require("./cart")(sequelize, Sequelize);
+// db.Category = require("./category")(sequelize, Sequelize);
+// db.Checkout = require("./checkout")(sequelize, Sequelize);
+// db.PersonalInfo = require("./personalinfo")(sequelize, Sequelize);
+// db.Product = require("./product")(sequelize, Sequelize);
+// db.Shop = require("./shop")(sequelize, Sequelize);
+// db.ShipmentCharge = require("./shipmentcharge")(sequelize, Sequelize);
+// db.Wishlist = require("./wishlist")(sequelize, Sequelize);
+
+// module.exports = db;
